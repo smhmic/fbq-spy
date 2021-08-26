@@ -92,6 +92,47 @@ fbqSpy( function(data){
 })
 ```
 
+#### Upgrade FB pixels for CAPI compatibility
+
+This adds `event_id` to FB pixels for redundant deduplicated CAPI tracking. 
+This code is for Google Tag Manager, but would be trivial to modify code for use anywhere.
+
+In GTM web container ...
+1. Add 'Facebook Pixel CAPI Helper' as a tag; fire on All Pages.
+2. Add 'Facebook Event ID' as a variable.
+3. In GA4 config tag, set `event_id` = `{{Facebook Event ID}}`.
+4. Validate using [FB Events Manager](https://www.facebook.com/events_manager2/list/pixel/test_events/overview). If you see 'Deduplicated' next to the event name, it's working!
+
+**GTM Tag: 'Facebook Pixel CAPI Helper'** (fire on All Pages)
+```javascript
+(function(){
+  var dL = google_tag_manager[{{Container ID}}].dataLayer,
+      dLKey_counter = 'fw.fb.counter', 
+      eventId = {{Facebook Event ID}};
+  fbqSpy( function(data){ 
+    if( 'track' !== data.the.command && 'trackCustom' !== data.the.command ) return;
+    data.args.push({eventID:eventId});
+    dL.set( dLKey_counter, (dL.get(dLKey_counter)||0)+1 );
+  });
+})()
+```
+
+**GTM Variable: 'Facebook Event ID'**
+```javascript
+function(){
+  try{
+    var dL = google_tag_manager[{{Container ID}}].dataLayer,
+        dLKey_counter = 'fw.fb.counter',
+        dLKey_pageloadId = 'fw.core.pageload_id', 
+        pageloadId = {{Pageload ID}} || dL.get(dLKey_pageloadId),
+        counter;
+    if( ! pageloadId ) return "";
+    ( counter = dL.get(dLKey_counter) ) || dL.set( dLKey_counter, counter=1 );
+    return pageloadId+'.'+counter;
+  }catch(ex){ {{Debug Mode}} && console.error("[GTM Variable: Facebook Event ID]",ex);}
+}
+```
+
     
 ## Contributing
 
