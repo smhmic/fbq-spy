@@ -71,14 +71,14 @@ _Warning: Calling `fbq` in the callback will cause an infinite feedback loop._
 ### Log Facebook tracking to console
 ```javascript
 fbqSpy( function(data){
-	console.debug.apply( console, ['fbq():'].concat(data.args) );
+  console.debug.apply( console, ['fbq():'].concat(data.args) );
 })
 ```
 
 ### Block non-"authenticated" tracking
 ```javascript
 fbqSpy( function(data){
-	return ( data.the.parameters.dataSource !== '{{Container ID}}' );
+  return ( data.the.parameters.dataSource !== '{{Container ID}}' );
 })
 ```
 
