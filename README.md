@@ -66,23 +66,23 @@ So if your integration breaks, default FB pixel behavior will be unaffected.
 _Warning: Calling `fbq` in the callback will cause an infinite feedback loop._
 
 
-### Examples
+## Examples
 
-#### Log Facebook tracking to console
+### Log Facebook tracking to console
 ```javascript
 fbqSpy( function(data){
 	console.debug.apply( console, ['fbq():'].concat(data.args) );
 })
 ```
 
-#### Block non-"authenticated" tracking
+### Block non-"authenticated" tracking
 ```javascript
 fbqSpy( function(data){
 	return ( data.the.parameters.dataSource !== '{{Container ID}}' );
 })
 ```
 
-#### Populate data layer from non-GTM tracking
+### Populate data layer from non-GTM tracking
 ```javascript
 fbqSpy( function(data){
   var namespace = 'fbq.' + data.the.command,
@@ -92,7 +92,7 @@ fbqSpy( function(data){
 })
 ```
 
-#### Upgrade FB pixels for CAPI compatibility
+### Upgrade FB pixels for CAPI compatibility
 
 This adds `event_id` to FB pixels for redundant deduplicated CAPI tracking. 
 This code is for Google Tag Manager, but would be trivial to modify code for use anywhere.
