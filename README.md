@@ -1,14 +1,12 @@
 # Facebook Pixel Spy
 
-_a.k.a. fbqSpy or FB Queue Spy_
+_a.k.a. fbq-spy or Facebook Queue Spy_
 
-This lightweight library listens for data tracked through Facebook's pixels, 
-including the ability to block or modify data collection. 
+This lightweight library allows listening, modifying, and blocking data tracked through Facebook's pixels. 
   
-This works specifically with that follow Facebook's reccomendations, using the [fbevents.js](https://connect.facebook.net/en_US/fbevents.js) library abd `fbq` command queue API.
+This works with implementations that follow Facebook's reccomendations, using the [fbevents.js](https://connect.facebook.net/en_US/fbevents.js) library and `fbq` command queue API.  (While not officially supported by Facebook, this library was deemed a viable solution by Facebook engineers as of 2021-9-16 — specifically to [prepare web pixels for CAPI support](https://github.com/smhmic/fbq-spy/blob/master/README.md#upgrade-fb-pixels-for-capi-compatibility)).
 
-The methodology is little more than a proxy pattern. The logic is highly similar to [GA Spy](https://github.com/smhmic/ga-spy); see that page for more details.
-
+The methodology is little more than a proxy pattern. For a detailed walkthrough, see [this walkthrough](https://www.simoahava.com/analytics/introducing-ga-spy-for-google-analytics/#1-spying-on-ga) of the highly similar logic of [GA Spy](https://github.com/smhmic/ga-spy).
 
 ## Usage
 
